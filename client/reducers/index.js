@@ -1,11 +1,6 @@
 import { combineReducers } from 'redux';
-import {
-  UPDATE_MESSAGE,
-  ADD_MESSAGE,
-  ADD_RESPONSE,
-  SET_USER_ID,
-  SET_ACTIVE_PAGE,
-} from '../actions/message-actions';
+import { UPDATE_MESSAGE, ADD_MESSAGE, ADD_RESPONSE, SET_USER_ID } from '../actions/message-actions';
+import { SET_ACTIVE_PAGE } from '../actions/page-actions';
 
 export default function (initialState) {
   function messages(currentMessages = initialState.messages, action) {
@@ -20,8 +15,8 @@ export default function (initialState) {
     }
   }
 
-  function currentMessage(currentMessage=initialState.currentMessage, action) {
-    switch(action.type) {
+  function currentMessage(currentMessage = initialState.currentMessage, action) {
+    switch (action.type) {
       case UPDATE_MESSAGE:
         return action.message;
       case ADD_MESSAGE:

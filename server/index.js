@@ -12,8 +12,8 @@ import Profile from './generated/app';
 import AboutUs from './generated/app';
 import ContactUs from './generated/app';
 import Login from './generated/app';
-// import Register from './generated/app';
-// import Error from './generated/app';
+import Register from './generated/app';
+import Error404 from './generated/app';
 
 const app = express();
 
@@ -93,8 +93,7 @@ app.get('*', (request, response) => {
       break;
     case '/register':
       obj = {
-        component: null,
-        // component: <Register />,
+        component: <Register />,
         title: 'Register',
         description: '',
         keywords: '',
@@ -103,8 +102,7 @@ app.get('*', (request, response) => {
       break;
     default:
       obj = {
-        component: null,
-        // component: <Error />,
+        component: <Error404 />,
         title: 'Error',
         description: '',
         keywords: '',

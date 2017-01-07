@@ -13,8 +13,8 @@ import Profile from './components/profile';
 import AboutUs from './components/aboutus';
 import ContactUs from './components/contactus';
 import Login from './components/login';
-// import Register from './components/register';
-// import Error from './components/error';
+import Register from './components/register';
+import Error404 from './components/error404';
 
 const initialState = window.INITIAL_STATE;
 const createStoreWithMiddleware = applyMiddleware(chatMiddleware)(createStore);
@@ -43,12 +43,10 @@ switch (store.getState().activePage) {
     component = <Login />;
     break;
   case 'register':
-    component = null;
-    // component = <Register />;
+    component = <Register />;
     break;
   default:
-    component = null;
-    // component = <Error />
+    component = <Error404 />;
 }
 
 ReactDOM.render(

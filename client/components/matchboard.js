@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class MatchBoard extends Component {
-  render() {
-    return (
-      <h1>MatchBoard</h1>
-    );
-  }
-}
+const MatchBoard = () => (
+  <h1>MatchBoard</h1>
+);
+
+export default MatchBoard;

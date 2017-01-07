@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Login = (
+const Login = () => (
   <div>
     <button>Login with Github</button>
   </div>
