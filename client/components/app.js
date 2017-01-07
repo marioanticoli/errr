@@ -2,22 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Layout } from 'antd';
-// import {} from './app.less';
+import {} from './app.less';
 import MessageList from './message-list';
 import MessageEntryBox from './message-entry-box';
 import * as messageActionCreators from '../actions/message-actions';
 
 import Navigation from './navigation';
 
-// require('../../node_modules/antd/dist/antd.less');
 import '../../node_modules/antd/dist/antd.less';
 
-const { Header, Sider, Content, Footer } = Layout;
+const { Header, Sider, Content } = Layout;
 
 class App extends Component {
   render() {
     return (
-      <Layout style={{ height: '100vh' }}>
+      <Layout className={'maxHeight'}>
         <Header>
           <Navigation active={this.props.activePage} />
         </Header>
@@ -35,9 +34,6 @@ class App extends Component {
             />
           </Sider>
         </Layout>
-        <Footer>
-          Some info
-        </Footer>
       </Layout>
     );
   }
@@ -47,7 +43,7 @@ App.propTypes = {
   activePage: React.PropTypes.string,
   children: React.PropTypes.node,
   userId: React.PropTypes.number,
-  messages: React.PropTypes.arrayOf(React.PropTypes.string),
+  messages: React.PropTypes.arrayOf(React.PropTypes.object),
   currentMessage: React.PropTypes.string,
   updateMessage: React.PropTypes.func,
   addMessage: React.PropTypes.func,

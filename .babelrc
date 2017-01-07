@@ -1,5 +1,8 @@
 {
   "presets": ["react", "es2015"],
   "ignore": "node_modules",
-  "plugins": [["import", [{ "libraryName": "antd", "style": true }]]]
+  "plugins": [
+    ["import", [{ "libraryName": "antd", "style": true }]],
+    ["transform-react-jsx-img-import"]
+  ]
 }

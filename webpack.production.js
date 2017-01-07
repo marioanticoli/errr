@@ -22,6 +22,13 @@ const loaders = [{
   test: /\.css$/,
   loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
 },
+{
+  test: /\.(jpg|png)$/,
+  loader: 'file-loader',
+  options: {
+    name: '[name].[hash].[ext]',
+  },
+},
 ];
 
 const aliases = {

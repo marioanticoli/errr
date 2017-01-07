@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {} from './message-entry-box.less';
 
 class MessageEntryBox extends Component {
   handleChange(ev) {
@@ -13,6 +14,7 @@ class MessageEntryBox extends Component {
         this.props.onSubmit({
           text: trimmedMessage,
           userId: this.props.userId,
+          time: (new Date()).getTime(),
         });
       }
 

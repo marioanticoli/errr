@@ -17,9 +17,6 @@ import Error404 from './generated/app';
 
 const app = express();
 
-// Object.assign = null;
-// Object.assign = require('object-assign');
-
 // View templates
 app.engine('handlebars', handlebars({
   defaultLayout: 'main',
@@ -30,6 +27,29 @@ app.set('views', path.resolve(__dirname, 'views'));
 
 // Static assets
 app.use(express.static(path.resolve(__dirname, '../dist')));
+
+// rethinkDB connection
+let messages = [];
+const r = require('rethinkdb');
+
+r.connect({ host: 'localhost', port: 28015 })
+.then((connection) => {
+  r.table('chat_messages')
+  // .pluck('userId', 'text')
+  .orderBy({ index: r.asc('time') })
+  .run(connection)
+  .then((result) => {
+    result.toArray((err, rows) => {
+      messages = rows;
+    });
+  })
+  .error((errQuery) => {
+    throw errQuery;
+  });
+})
+.error((errConn) => {
+  throw errConn;
+});
 
 // Routes
 app.get('*', (request, response) => {
@@ -112,7 +132,7 @@ app.get('*', (request, response) => {
   const initialState = {
     userId: null,
     currentMessage: '',
-    messages: [],
+    messages,
     activePage: navKey,
   };
   const store = createStore((state = initialState) => state);

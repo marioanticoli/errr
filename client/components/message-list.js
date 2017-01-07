@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
+import {} from './message-list.less';
 
 class MessageList extends Component {
   render() {
     return (
-      <ol className='message-list'>
+      <ol className={'message-list'}>
         {this.props.messages.map((message, index) => {
-          const messageClass = message.userId !== this.props.userId ? 'is-response' : '';
+          let messageClass = '';
+          let user = 'Me';
+          const time = (new Date(message.time)).toLocaleTimeString();
+          if (message.userId !== this.props.userId) {
+            messageClass = 'is-response';
+            user = `User ${message.userId}`;
+          }
           return (
-            <li key={`message-${index}`} className='message-item'>
+            <li key={`message-${index}`} className={'message-item'}>
               <p className={`message ${messageClass}`}>
-                User {message.userId}: {message.text}
+                {user} @ {time} : {message.text}
               </p>
             </li>
           );

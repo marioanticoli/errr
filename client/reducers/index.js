@@ -8,7 +8,8 @@ export default function (initialState) {
       case ADD_MESSAGE:
       case ADD_RESPONSE:
         let messages = currentMessages.map(message => Object.assign({}, message));
-        messages.push(Object.assign({}, action.message));
+        messages.push(Object.assign({}, action.message)); // add last message
+        // messages.splice(0, 1); // delete first message
         return messages;
       default:
         return currentMessages;

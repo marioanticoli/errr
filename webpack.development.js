@@ -43,6 +43,13 @@ const devConfig = Object.assign({}, config.client, {
         test: /\.less$/,
         loader: 'style-loader!css-loader!less-loader',
       },
+      {
+        test: /\.(jpg|png)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[hash].[ext]',
+        },
+      },
     ],
   },
   plugins: [
