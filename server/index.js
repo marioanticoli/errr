@@ -15,8 +15,6 @@ import ContactUs from './generated/app';
 import Login from './generated/app';
 import Register from './generated/app';
 import Error404 from './generated/app';
-// thinky models
-import Message from './models/message';
 
 const app = express();
 
@@ -30,13 +28,6 @@ app.set('views', path.resolve(__dirname, 'views'));
 
 // Static assets
 app.use(express.static(path.resolve(__dirname, '../dist')));
-
-// rethinkDB connection
-let messages = null;
-Message.run()
-  .then((msgs) => {
-    messages = msgs;
-  });
 
 // Routes
 app.get('*', (request, response) => {
@@ -119,7 +110,7 @@ app.get('*', (request, response) => {
   const initialState = {
     userId: null,
     currentMessage: '',
-    messages,
+    messages: [],
     activePage: navKey,
   };
   const store = createStore((state = initialState) => state);

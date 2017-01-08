@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 import * as actions from './actions/message-actions';
 
-var socket = null;
+let socket = null;
 
 export function chatMiddleware(store) {
   return next => (action) => {

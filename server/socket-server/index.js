@@ -1,5 +1,5 @@
 import io from 'socket.io';
-import Message from '../models/message';
+import { Message } from '../models/message';
 
 const thinky = require('../models/util/thinky.js');
 

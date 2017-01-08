@@ -8,7 +8,10 @@ const Message = thinky.createModel('Message', {
   time: type.date().required(),
 });
 
-module.exports = Message;
+module.exports = {
+  Message,
+  thinky,
+};
 
 Message.ensureIndex('time');
 
