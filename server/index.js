@@ -5,6 +5,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+// bundled components
 import App from './generated/app';
 import Home from './generated/app';
 import MatchBoard from './generated/app';
@@ -14,6 +15,8 @@ import ContactUs from './generated/app';
 import Login from './generated/app';
 import Register from './generated/app';
 import Error404 from './generated/app';
+// thinky models
+import Message from './models/message';
 
 const app = express();
 
@@ -29,27 +32,11 @@ app.set('views', path.resolve(__dirname, 'views'));
 app.use(express.static(path.resolve(__dirname, '../dist')));
 
 // rethinkDB connection
-let messages = [];
-const r = require('rethinkdb');
-
-r.connect({ host: 'localhost', port: 28015 })
-.then((connection) => {
-  r.table('chat_messages')
-  // .pluck('userId', 'text')
-  .orderBy({ index: r.asc('time') })
-  .run(connection)
-  .then((result) => {
-    result.toArray((err, rows) => {
-      messages = rows;
-    });
-  })
-  .error((errQuery) => {
-    throw errQuery;
+let messages = null;
+Message.run()
+  .then((msgs) => {
+    messages = msgs;
   });
-})
-.error((errConn) => {
-  throw errConn;
-});
 
 // Routes
 app.get('*', (request, response) => {

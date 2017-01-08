@@ -14,3 +14,4 @@
 
 ## Functionalities
   - e-mail
+  - consider use of Regrid for file storage in RethinkDB https://github.com/internalfx/regrid
