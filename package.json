@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-dev": "NODE_ENV=development nodemon --exec babel-node index.js -e js,handlebars",
+    "start-dev": "NODE_ENV=development node_modules/nodemon/bin/nodemon.js --exec babel-node index.js -e js,handlebars",
     "webpack-dev": "babel-node webpack.development.js",
     "build": "webpack -p --config ./webpack.production.js",
-    "start": "NODE_ENV=production babel-node index.js"
+    "start": "NODE_ENV=production node_modules/babel-cli/bin/babel-node.js index.js"
   },
   "keywords": [],
   "author": "",
@@ -43,6 +43,7 @@
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.14.2",
+    "nodemon": "^1.11.0",
     "object-assign": "^4.1.0",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",

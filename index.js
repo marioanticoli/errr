@@ -11,8 +11,8 @@ if (process.env.NODE_ENV === 'development') {
   server.locals.isDevelopment = true;
 } else if (process.env.NODE_ENV === 'production') {
   config.port = 3001;
-  config.host = 'localhost';
-  server.locals.assetPath = 'http://localhost:3001/';
+  config.host = '0.0.0.0';
+  server.locals.assetPath = '/';
   server.locals.isDevelopment = false;
 }
 
