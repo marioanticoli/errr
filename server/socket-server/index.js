@@ -1,7 +1,5 @@
 import io from 'socket.io';
-import { Message } from '../models/message';
-
-const thinky = require('../models/util/thinky.js');
+import { Message, thinky } from '../models/message';
 
 export default function (server) {
   thinky.dbReady().then(() => {

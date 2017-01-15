@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.18.0",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
     "babel-plugin-import": "^1.1.0",
@@ -39,7 +40,7 @@
     "antd": "^2.6.1",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.15.2",
-    "connect-redis": "^3.2.0",
+    "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.14.2",
@@ -54,10 +55,10 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^5.0.1",
-    "redis-url": "^1.2.1",
     "redux": "^3.6.0",
     "rethinkdb": "^2.3.3",
     "socket.io": "^1.7.2",
-    "thinky": "^2.3.8"
+    "thinky": "^2.3.8",
+    "validator": "^6.2.1"
   }
 }

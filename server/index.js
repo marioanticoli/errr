@@ -5,6 +5,11 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import bodyParser from 'body-parser';
+// import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import passport from 'passport';
+import localS from 'passport-local';
 // bundled components
 import App from './generated/app';
 import Home from './generated/app';
@@ -15,6 +20,10 @@ import ContactUs from './generated/app';
 import Login from './generated/app';
 import Register from './generated/app';
 import Error404 from './generated/app';
+// models
+import { User } from './models/user';
+// strategies
+import localStrategy from './passport-strategies/local';
 
 const app = express();
 
@@ -25,16 +34,66 @@ app.engine('handlebars', handlebars({
 }));
 app.set('view engine', 'handlebars');
 app.set('views', path.resolve(__dirname, 'views'));
-
-// Static assets
 app.use(express.static(path.resolve(__dirname, '../dist')));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }, // set to true?
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Pass just the user id to the passport middleware
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// Reading your user base on the user.id
+passport.deserializeUser((id, done) => {
+  User.get(id).run().then((user) => {
+    done(null, user.public());
+  });
+});
+
+localStrategy(passport, localS.Strategy);
 
 // Routes
-app.get('*', (request, response) => {
+app.post('/register', (req, res) => {
+  User.filter({ email: req.body.email.toLowerCase() || '' }).count().execute()
+  .delay(1500)
+  .then((count) => {
+    if (count === 0) { return true; }
+    throw new Error('A user is already registered with that email address');
+  })
+  .then(() => {
+    const user = new User({
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+    });
+    return user.save();
+  })
+  .then(() => {
+    res.redirect('/login');
+  })
+  .catch((err) => { res.json({ error: err.message }); });
+});
+
+app.post('/login',
+  passport.authenticate('local'),
+  (req, res) => {
+    res.json({ loggedin: true });
+  },
+);
+
+app.get('*', (req, res) => {
   const namePlatform = 'Gamebar';
   let obj = null;
   let navKey = null;
-  switch (request.url) {
+  switch (req.url) {
     case '/':
       obj = {
         component: <Home />,
@@ -122,7 +181,7 @@ app.get('*', (request, response) => {
     </Provider>,
   );
 
-  response.render('app', {
+  res.render('app', {
     title: `${obj.title} | ${namePlatform}`,
     keywords: obj.keywords,
     description: obj.description,
